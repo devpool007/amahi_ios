@@ -55,6 +55,12 @@ public class ServerFile: EVNetworkingObject {
         return ByteCountFormatter().string(fromByteCount: size!)
     }
     
+    public func prepareImages(fileindex: Int, files: [ServerFile]) ->String {
+    var urlString: String = ServerApi.shared!.getFileUri(files[fileindex]).absoluteString
+    return urlString
+    }
+
+    
     public func getLastModifiedDate() -> String {
         return mtime!.asString
     }

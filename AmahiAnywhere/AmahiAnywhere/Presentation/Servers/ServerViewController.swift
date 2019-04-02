@@ -5,7 +5,6 @@
 //  Created by codedentwickler on 2/18/18.
 //  Copyright © 2018 Amahi. All rights reserved.
 //
-
 import UIKit
 
 class ServerViewController: BaseUITableViewController {
@@ -17,7 +16,7 @@ class ServerViewController: BaseUITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         presenter = ServerPresenter(self)
         presenter.fetchServers()
         self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControl.Event.valueChanged)
@@ -32,7 +31,7 @@ class ServerViewController: BaseUITableViewController {
     @objc func handleRefresh(sender: UIRefreshControl) {
         presenter.fetchServers()
     }
-
+    
     @IBAction func settingButtonPressed(_ sender: Any) {
         performSegue(withIdentifier: SegueIdentfiers.SETTING, sender: nil)
     }
@@ -86,7 +85,7 @@ extension ServerViewController {
             navigationController?.pushViewController(sharesVc, animated: true)
         } else {
             let offlineFileVc = viewController(viewControllerClass: OfflineFilesTableViewController.self,
-                                          from: StoryBoardIdentifiers.MAIN)
+                                               from: StoryBoardIdentifiers.MAIN)
             navigationController?.pushViewController(offlineFileVc, animated: true)
         }
     }

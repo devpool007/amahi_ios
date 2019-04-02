@@ -26,3 +26,8 @@ struct CellIdentifiers {
     static let SETTING_CELL =                        "settingsCell"
     static let SETTING_CELL_WITH_DETAILS =           "settingsCellWithDetails"
 }
+
+struct ImageNames{
+    public static var imageNames:[String] = []
+
+}

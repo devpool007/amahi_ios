@@ -232,9 +232,11 @@ internal class FilesPresenter: BasePresenter {
     
     private func prepareImageArray(_ files: [ServerFile]) -> [LightboxImage] {
         var images: [LightboxImage] = [LightboxImage] ()
+        
         for file in files {
             if (Mimes.shared.match(file.mime_type!) == MimeType.image) {
                 images.append(LightboxImage(imageURL: ServerApi.shared!.getFileUri(file), text: file.name!))
+                //ImageNames.imageNames.append(file.name!)
             }
         }
         return images

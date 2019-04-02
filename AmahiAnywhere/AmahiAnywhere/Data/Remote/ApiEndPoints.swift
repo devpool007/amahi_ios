@@ -9,7 +9,8 @@
 import Foundation
 
 struct ApiEndPoints {
-
+    
+    
     static func authenticate() -> String! {
         return "\(ApiConfig.BASE_URL)/api2/oauth/token?grant_type=password"
     }

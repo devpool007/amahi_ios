@@ -19,7 +19,6 @@ class FilesViewController: BaseUIViewController {
     // Mark - TableView data properties
     internal var serverFiles: [ServerFile] = [ServerFile]()
     internal var filteredFiles: [ServerFile] = [ServerFile]()
-    
     internal var fileSort = FileSort.modifiedTime
     
     /*

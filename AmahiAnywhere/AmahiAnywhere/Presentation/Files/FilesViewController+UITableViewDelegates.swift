@@ -13,7 +13,7 @@ extension FilesViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredFiles.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let serverFile = filteredFiles[indexPath.row]
         if serverFile.isDirectory() {
@@ -22,15 +22,22 @@ extension FilesViewController : UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ServerFileTableViewCell", for: indexPath) as! ServerFileTableViewCell
-            cell.fileNameLabel?.text = serverFile.name
-            cell.fileSizeLabel?.text = serverFile.getFileSize()
-            cell.lastModifiedLabel?.text = serverFile.getLastModifiedDate()
             
+            cell.fileSizeLabel?.text = serverFile.getFileSize()
+           
+            
+            let urlImage = URL(string: serverFile.prepareImages(fileindex: indexPath.row, files: filteredFiles))
+            if let dataImage = try? Data(contentsOf: (urlImage)!) {
+                cell.thumbnail.image = UIImage(data: dataImage)
+            }
+            else{
+                cell.thumbnail.image = UIImage(named: "App Logo")
+            }
+            cell.lastModifiedLabel?.text = serverFile.getLastModifiedDate()
             let tap = UITapGestureRecognizer(target: self, action: #selector(userClickMenu(sender:)))
             tap.cancelsTouchesInView = true
             cell.menuImageView.isUserInteractionEnabled = true
             cell.menuImageView.addGestureRecognizer(tap)
-            
             return cell
         }
     }
@@ -38,6 +45,7 @@ extension FilesViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         presenter.handleFileOpening(fileIndex: indexPath.row, files: filteredFiles, from: tableView.cellForRow(at: indexPath))
+       
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
